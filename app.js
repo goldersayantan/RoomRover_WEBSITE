@@ -1,0 +1,62 @@
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const path = require('path');
+const methodOverride = require("method-override");  // Used for delete and update
+const ejsMate = require("ejs-mate");  // It helps to create layouts, include layout in webpage like "boilerplate"
+const ExpressError = require("./utils/ExpressError.js")
+const PORT = 8080;
+
+// Routes
+const listingRoutes = require("./routes/listing.js");
+const reviewRoutes = require("./routes/review.js");
+
+const MONGO_URL = "mongodb://127.0.0.1:27017/roomrover";
+
+main()
+    .then(() => {
+        console.log("Connected To DB");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+
+async function main()   {
+    await mongoose.connect(MONGO_URL);
+}
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({extended : true}));  // Parse URL-encoded data from forms
+app.use(methodOverride("_method"));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.json());  // Parse incoming JSON
+
+app.get("/", (req, res) =>  {
+    res.send("Hi ! I am root.");
+});
+
+// Here we are using all the routes starting with 'listings'
+app.use("/listings", listingRoutes);
+
+// Here we are using all the routes starting with 'listings/:id/reviews'
+app.use("/listings/:id/reviews", reviewRoutes);
+
+// Fallback route for undefined paths
+app.use((req, res, next) => {
+    const err = new ExpressError(404, 'This path does not exist.');
+    next(err); // Pass it to the error handler
+});
+
+app.use((err, req, res, next) => {
+    let {status = 500, message = "Something went wrong!"} = err;
+    // res.status(status).send(message);
+    res.status(status).render("errors/error.ejs", {message})
+});
+
+app.listen(PORT, () => {
+    console.log(`App is running on : http://localhost:${PORT}`);
+});
+
