@@ -7,11 +7,15 @@ const ejsMate = require("ejs-mate");  // It helps to create layouts, include lay
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 const PORT = 8080;
 
 // Routes
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/review.js");
+const userRoutes = require("./routes/user.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/roomrover";
 
@@ -48,8 +52,17 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));  // Using Sessions
-
 app.use(flash()) // Using flash for success and failure message
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// use static authenticate method of model in LocalStrategy
+passport.use(new LocalStrategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.get("/", (req, res) =>  {
     res.send("Hi ! I am root.");
@@ -68,6 +81,10 @@ app.use("/listings", listingRoutes);
 // Here we are using all the routes starting with 'listings/:id/reviews'
 app.use("/listings/:id/reviews", reviewRoutes);
 
+// Here we are using all the routes starting with
+app.use("/", userRoutes);
+
+
 // Fallback route for undefined paths
 app.use((req, res, next) => {
     const err = new ExpressError(404, 'This path does not exist.');
@@ -76,7 +93,6 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     let {status = 500, message = "Something went wrong!"} = err;
-    // res.status(status).send(message);
     res.status(status).render("errors/error.ejs", {message})
 });
 
