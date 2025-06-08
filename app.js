@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const path = require('path');
 const methodOverride = require("method-override");  // Used for delete and update
 const ejsMate = require("ejs-mate");  // It helps to create layouts, include layout in webpage like "boilerplate"
-const ExpressError = require("./utils/ExpressError.js")
+const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 const PORT = 8080;
 
 // Routes
@@ -34,8 +36,30 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.json());  // Parse incoming JSON
 
+const sessionOptions = {
+    secret : "mySuperSecretCode",
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,  // For 1 week in milliSecond
+        maxAge : 7 * 24 * 60 * 60 * 1000,
+        httpOnly : true
+    }
+};
+
+app.use(session(sessionOptions));  // Using Sessions
+
+app.use(flash()) // Using flash for success and failure message
+
 app.get("/", (req, res) =>  {
     res.send("Hi ! I am root.");
+});
+
+// For showing flash
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
 });
 
 // Here we are using all the routes starting with 'listings'
