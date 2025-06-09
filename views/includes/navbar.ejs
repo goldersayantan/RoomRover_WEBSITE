@@ -10,6 +10,15 @@
                 <a class="nav-link" href="/listings">All Listings</a>
                 <a class="nav-link" href="/listings/new">Add New Listing</a>
             </div>
+            <div class="navbar-nav ms-auto">  <!-- "ms-auto" is used to shift the elements on the right side -->
+                <% if(!currUser) {%>
+                    <a class="nav-link" href="/signup">Sign Up</a>
+                    <a class="nav-link" href="/signin">Sign In</a>
+                <% } %>
+                <% if(currUser) {%>
+                    <a class="nav-link" href="/logout">Logout</a>
+                <% } %>
+            </div>
         </div>
     </div>
 </nav>

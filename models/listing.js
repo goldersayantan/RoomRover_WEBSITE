@@ -31,9 +31,13 @@ const listingSchema = new Schema({
     reviews : [
         {
             type : Schema.Types.ObjectId,
-            ref : "Review"
+            ref : "Review"    // review.js exported module
         }
     ],
+    owner : {
+        type : Schema.Types.ObjectId,
+        ref : "User"    // user.js exported module
+    }
 });
 
 listingSchema.post("findOneAndDelete", async(listing) => {
