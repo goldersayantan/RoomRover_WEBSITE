@@ -16,10 +16,6 @@
                     <textarea name="listing[description]" placeholder="Enter description" id="description" class="form-control" required></textarea>
                     <div class="invalid-feedback">Please enter a short description</div>
                 </div>
-<!--                <div class="mb-3">-->
-<!--                    <label for="image" class="form-label">Enter image URL/Link : </label>-->
-<!--                    <input name="listing[image]" placeholder="Enter image url/link" type="text" id="image" class="form-control">-->
-<!--                </div>-->
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload listing Image : </label>
                     <input name="listing[image]" type="file" id="image" class="form-control">
@@ -40,6 +36,11 @@
                     <label for="country" class="form-label">Enter country : </label>
                     <input name="listing[country]" placeholder="Enter country" type="text" id="country" class="form-control" required>
                     <div class="invalid-feedback">Country should be valid</div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Enter email address : </label>
+                    <input name="listing[email]" placeholder="Enter email address" type="email" id="email" class="form-control" required>
+                    <div class="invalid-feedback">Email should be valid</div>
                 </div>
                 <button type="submit" class="btn btn-dark add-btn mt-3 mb-3">Add</button>
             </form>

@@ -26,6 +26,10 @@ body    {
     color: #222222 !important;
 }
 
+.nav-logo   {
+    width: 5rem;
+}
+
 /*Footer*/
 .f-info-links   {
     text-decoration: none;

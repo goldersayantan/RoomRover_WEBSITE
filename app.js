@@ -2,7 +2,6 @@ if(process.env.NODE_ENV != "production")    {
     require('dotenv').config();
 }
 
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -43,6 +42,7 @@ app.use(express.urlencoded({extended : true}));  // Parse URL-encoded data from 
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "/assets")));
 app.use(express.json());  // Parse incoming JSON
 
 const sessionOptions = {
@@ -98,6 +98,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App is running on : http://localhost:${PORT}`);
+    console.log(`App is running on : http://localhost:${PORT}/listings`);
 });
 

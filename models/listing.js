@@ -27,6 +27,10 @@ const listingSchema = new Schema({
         type : String,
         required : true
     },
+    email : {
+        type : String,
+        required : true
+    },
     reviews : [
         {
             type : Schema.Types.ObjectId,

@@ -41,6 +41,12 @@
                     <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" id="country" required>
                     <div class="invalid-feedback">Country should be valid</div>
                 </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email : </label>
+                    <input name="listing[email]" value="<%= listing.email %>" type="email" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Email should be valid</div>
+                </div>
+
                 <button type="submit" class="btn btn-dark edit-btn mt-3 mb-3">Edit</button>
             </form>
         </div>
