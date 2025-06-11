@@ -1,18 +1,218 @@
 <% layout("/layouts/boilerplate.ejs") -%>
     <body>
-        <h1>All Listings</h1>
-        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+        <div id="tax-heading-divs">
+            <div>
+                <h1>Found your perfect stay</h1>
+            </div>
+            <div class="tax-toggle">
+                <div class="form-check form-check-reverse form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                    <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+                </div>
+            </div>
+        </div>
+        <div id="filters-wrapper">
+            <div id="filters">
+                <!-- DUPLICATED CONTENT for seamless looping -->
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <p>Trending</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <p>House</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <p>Rooms</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-mountain-city"></i>
+                    </div>
+                    <p>Amazing Views</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <p>Iconic Cities</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-water-ladder"></i>
+                    </div>
+                    <p>Pools</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-person-swimming"></i>
+                    </div>
+                    <p>Swimming</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house-user"></i>
+                    </div>
+                    <p>Shared Rooms</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <p>Beach</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-brands fa-fort-awesome"></i>
+                    </div>
+                    <p>Castles</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                    <p>Mountain</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-tents"></i>
+                    </div>
+                    <p>Camping</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-igloo"></i>
+                    </div>
+                    <p>Arctic</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house-fire"></i>
+                    </div>
+                    <p>Hot Deals</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-ship"></i>
+                    </div>
+                    <p>Boats</p>
+                </div>
+
+                <!-- Duplicated again for infinite scroll -->
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <p>Trending</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <p>House</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <p>Rooms</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-mountain-city"></i>
+                    </div>
+                    <p>Amazing Views</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <p>Iconic Cities</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-water-ladder"></i>
+                    </div>
+                    <p>Pools</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-person-swimming"></i>
+                    </div>
+                    <p>Swimming</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house-user"></i>
+                    </div>
+                    <p>Shared Rooms</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <p>Beach</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-brands fa-fort-awesome"></i>
+                    </div>
+                    <p>Castles</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                    <p>Mountain</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-tents"></i>
+                    </div>
+                    <p>Camping</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-igloo"></i>
+                    </div>
+                    <p>Arctic</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-house-fire"></i>
+                    </div>
+                    <p>Hot Deals</p>
+                </div>
+                <div class="filter">
+                    <div>
+                        <i class="fa-solid fa-ship"></i>
+                    </div>
+                    <p>Boats</p>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
             <%    for(let listing of allListings)    { %>
                 <div class="card col listing-card">
-                    <img src="<%= listing.image %>" class="card-img-top" alt="Listing Image" style="height: 20rem">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" style="height: 20rem">
                     <div class="card-body">
                         <h5 class="card-title"><%= listing.title %></h5>
-                        <p class="card-text">&#8377; <%= listing.price.toLocaleString() %> / Night, <%= listing.country %></p>
+                        <p class="card-text">&#8377; <%= listing.price.toLocaleString() %> / Night, <i class="tax-info">&nbsp; &nbsp; +18% GST</i></p>
+                        <p><%= listing.country %></p>
                         <a href="/listings/<%=listing._id%>" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             <%    } %>
         </div>
+
+        <script src="/javascripts/taxSwitch.js"></script>
     </body>
 
 

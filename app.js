@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV != "production")    {
+    require('dotenv').config();
+}
+
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -64,10 +69,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req, res) =>  {
-    res.send("Hi ! I am root.");
-});
-
 // For showing flash
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
@@ -84,7 +85,6 @@ app.use("/listings/:id/reviews", reviewRoutes);
 
 // Here we are using all the routes starting with
 app.use("/", userRoutes);
-
 
 // Fallback route for undefined paths
 app.use((req, res, next) => {

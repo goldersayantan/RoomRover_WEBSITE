@@ -12,9 +12,8 @@ const listingSchema = new Schema({
         required : true
     },
     image : {
-        type : String,
-        default : "https://images.unsplash.com/photo-1566073771259-6a8506099945",
-        set : (v) => v === "" ? "https://images.unsplash.com/photo-1566073771259-6a8506099945" : v,
+        url : String,
+        filename : String,
     },
     price : {
         type : Number,

@@ -1,33 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const {listingSchema, reviewSchema} = require("../models/schema.js");  // Used to validate the listing schema and Used to validate the review schema
 const {isLoggedIn, isOwner, validateListing} = require("../middleware/middleware.js");
+const multer = require("multer");    // To parse form data we are using multer
+const {storage} = require("../cloudconfig/cloudConfig.js");
+const upload = multer({storage});    // The uploaded images will be stored in the uploads folder
+
+
 
 // controllers for listings
 const listingController = require("../controllers/listing.js")
 
-
-// Index Route
-router.get("/", wrapAsync(listingController.index));
-
 // New Route
 router.get("/new", isLoggedIn, listingController.newForm);
 
-// Show Route
-router.get("/:id", wrapAsync(listingController.showListing));
+// Index Route and Create Route
+router.route("/")
+    .get(wrapAsync(listingController.index))    // Index Route
+    .post(isLoggedIn, validateListing, upload.single('listing[image]'), wrapAsync(listingController.createListing));  // Create Route
 
-// Create Route
-router.post("/", isLoggedIn, validateListing, wrapAsync(listingController.createListing));
+
+// Show Route, Update Route and Delete Route
+router.route("/:id")
+    .get(wrapAsync(listingController.showListing))
+    .put(isLoggedIn, isOwner, upload.single('listing[image]'), validateListing, wrapAsync(listingController.updateListing))
+    .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 // Edit route
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync (listingController.renderEdit));
-
-// Update Route
-router.put("/:id", isLoggedIn, isOwner, validateListing, wrapAsync(listingController.updateListing));
-
-// Delete Route
-router.delete("/:id", isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 module.exports = router;
