@@ -10,6 +10,7 @@ const methodOverride = require("method-override");  // Used for delete and updat
 const ejsMate = require("ejs-mate");  // It helps to create layouts, include layout in webpage like "boilerplate"
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -20,8 +21,10 @@ const PORT = 8080;
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/review.js");
 const userRoutes = require("./routes/user.js");
+const reserveRoutes = require("./routes/reserve.js")
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/roomrover";
+const dbUrl = process.env.ATLASDB_URL;
+
 
 main()
     .then(() => {
@@ -33,7 +36,7 @@ main()
 
 
 async function main()   {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -45,8 +48,21 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(path.join(__dirname, "/assets")));
 app.use(express.json());  // Parse incoming JSON
 
+const store = MongoStore.create({
+    mongoUrl : dbUrl,
+    crypto : {
+        secret : process.env.SECRET
+    },
+    touchAfter : 24 * 60 * 60, // for 24 hours in second
+})
+
+store.on("error", () => {
+    console.log("Error in MONGO STORE SESSION.")
+});
+
 const sessionOptions = {
-    secret : "mySuperSecretCode",
+    store : store,
+    secret : process.env.SECRET,
     resave : false,
     saveUninitialized : true,
     cookie : {
@@ -55,6 +71,8 @@ const sessionOptions = {
         httpOnly : true
     }
 };
+
+
 
 app.use(session(sessionOptions));  // Using Sessions
 app.use(flash()) // Using flash for success and failure message
@@ -85,6 +103,10 @@ app.use("/listings/:id/reviews", reviewRoutes);
 
 // Here we are using all the routes starting with
 app.use("/", userRoutes);
+
+// Here we are using all the routes starting with 'listings/:id/reserve'
+app.use("/listings/:id/reserve", reserveRoutes);
+
 
 // Fallback route for undefined paths
 app.use((req, res, next) => {

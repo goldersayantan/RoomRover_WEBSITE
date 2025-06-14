@@ -1,0 +1,40 @@
+<% layout("/layouts/boilerplate.ejs") %>
+    <body>
+        <div class="row mt-3">
+            <div class="col-8 offset-1 reserve-section">
+                <h2>Reserve <%= listing.title %></h2>
+                <form method="post" action="/listings/<%= listing._id %>/reserve" class="needs-validation" novalidate>
+                    <div class="mb-3 mt-4">
+                        <label for="fullName" class="form-label">Enter your full name : </label>
+                        <input type="text" id="fullName" name="fullName" class="form-control" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Enter your email address : </label>
+                        <input type="email" name="email" id="email" class="form-control" required/>
+                        <div class="invalid-feedback">Valid email is required</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Enter your current address : </label>
+                        <input type="text" name="address" class="form-control" id="address" required/>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-4">
+                            <label for="guests" class="form-label">Enter the number of guests : </label>
+                            <input type="number" name="guests" min="1" max="10" id="guests" class="form-control" required>
+                            <div class="invalid-feedback">Number of guest should be from 1 to 10</div>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="days" class="form-label">Enter the number of days : </label>
+                            <input type="number" name="days" min="1" max="10" id="days" class="form-control" required/>
+                            <div class="invalid-feedback">Number of days should be from 1 to 10</div>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-3">
+                        <label for="date" class="form-label">Choose the date : </label>
+                        <input type="date" name="date" id="date" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-dark edit-btn mt-3 mb-3">Send</button>
+                </form>
+            </div>
+        </div>
+    </body>

@@ -1,24 +1,71 @@
+<!--<% layout("/layouts/boilerplate.ejs") %>-->
+<!--    <div class="row mt-5">-->
+<!--        <h3 class="col-6 offset-3">Sign Up For RoomRover</h3>-->
+<!--        <div class="col-6 offset-3 mt-3" id="signup-section">-->
+<!--            <form action="/signup" method="POST" novalidate class="needs-validation">-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="username" class="form-label"><b>Enter Username : </b></label>-->
+<!--                    <input name="username" placeholder="Enter Username" type="text" class="form-control" id="username" required>-->
+<!--                    <div class="valid-feedback">Looks Good!</div>-->
+<!--                    <div class="invalid-feedback">Enter a cachy username</div>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="email" class="form-label"><b>Enter Email Address : </b></label>-->
+<!--                    <input name="email" placeholder="Enter Email" type="email" class="form-control" id="email" required>-->
+<!--                    <div class="invalid-feedback">Enter an email address</div>-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                    <label for="password" class="form-label"><b>Enter a strong password : </b></label>-->
+<!--                    <input name="password" placeholder="Enter password" type="password" class="form-control" id="password" required>-->
+<!--                </div>-->
+<!--                <button class="btn btn-success">Sign Up</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
 <% layout("/layouts/boilerplate.ejs") %>
-    <div class="row mt-3">
-        <h3 class="col-6 offset-3">Signup For RoomRover</h3>
-        <div class="col-6 offset-3">
-            <form action="/signup" method="POST" novalidate class="needs-validation">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Enter Username : </label>
-                    <input name="username" placeholder="Enter Username" type="text" class="form-control" id="username" required>
-                    <div class="valid-feedback">Looks Good!</div>
-                    <div class="invalid-feedback">Enter a cachy username</div>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Enter Email Address : </label>
-                    <input name="email" placeholder="Enter Email" type="email" class="form-control" id="email" required>
-                    <div class="invalid-feedback">Enter an email address</div>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Enter a strong password : </label>
-                    <input name="password" placeholder="Enter password" type="password" class="form-control" id="password" required>
-                </div>
-                <button class="btn btn-success">Signup</button>
-            </form>
-        </div>
+<div class="row mt-5">
+    <h3 class="col-6 offset-3">Sign Up For RoomRover</h3>
+    <div class="col-6 offset-3 mt-3" id="signup-section">
+        <form id="signup-form" action="/signup" method="POST" novalidate class="needs-validation">
+            <div class="mb-3">
+                <label for="username" class="form-label"><b>Enter Username : </b></label>
+                <input name="username" placeholder="Enter Username" type="text" class="form-control" id="username" required>
+                <div class="valid-feedback">Looks Good!</div>
+                <div class="invalid-feedback">Enter a catchy username</div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label"><b>Enter Email Address : </b></label>
+                <input name="email" placeholder="Enter Email" type="email" class="form-control" id="email" required>
+                <div class="invalid-feedback">Enter a valid email address</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label"><b>Enter a strong password : </b></label>
+                <input name="password" placeholder="Enter password" type="password" class="form-control" id="password" required>
+                <div class="invalid-feedback" id="password-feedback">Password must contain uppercase, lowercase, number, special character and be at least 8 characters long</div>
+            </div>
+            <button class="btn btn-success" type="submit">Sign Up</button>
+        </form>
     </div>
+</div>
+
+<script>
+    document.getElementById('signup-form').addEventListener('submit', function (e) {
+        const passwordInput = document.getElementById('password');
+        const password = passwordInput.value;
+        const feedback = document.getElementById('password-feedback');
+
+        // Validation pattern
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+
+        if (!passwordPattern.test(password)) {
+            passwordInput.classList.add('is-invalid');
+            feedback.style.display = 'block';
+            e.preventDefault(); // prevent form submission
+        } else {
+            passwordInput.classList.remove('is-invalid');
+            passwordInput.classList.add('is-valid');
+        }
+    });
+</script>

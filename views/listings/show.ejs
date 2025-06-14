@@ -4,14 +4,14 @@
         <div class="col-8 offset-3">
             <h2><%= listing.title %></h2>
         </div>
-            <div class="card col-6 offset-3 show-card listing-card">
+            <div class="card col-6 offset-3 show-card listing-card" id="show-details">
                 <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing image">
                 <div class="card-body">
-                    <p class="card-text"><i>Owned By : <%= listing.owner.username %></i><br></p>
+                    <p class="card-text"><b>Owned By : <i><%= listing.owner.username %></i></b><br></p>
                     <p class="card-text"><%= listing.description %><br></p>
-                    <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-In") %>/ Night<br></p>
-                    <p class="card-text"><%= listing.location %><br></p>
-                    <p class="card-text"><%= listing.country %></p>
+                    <p class="card-text"><b>Price : </b>&#8377;<%= listing.price.toLocaleString("en-In") %>/ Night<br></p>
+                    <p class="card-text"><b>Address : </b><%= listing.location %><br></p>
+                    <p class="card-text"><b>Country : </b><%= listing.country %></p>
                 </div>
             </div>
             <br>
@@ -24,15 +24,21 @@
                 <button class="btn btn-dark offset-5">Delete</button>
             </form>
         </div>
-    <% } %>
     <hr>
+    <% } %>
+
+    <% if(!currUser || !currUser._id.equals(listing.owner._id)) { %>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="/listings/<%= listing._id %>/reserve" class="btn btn-primary" type="button">Reserve This Stay</a>
+        </div>
+    <% } %>
 
     <div class="col-8 offset-3 mb-3">
         <% if(currUser) {%>
             <h4>Leave a review</h4>
             <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
                 <div class="mb-3 mt-3">
-                    <label for="rating" class="form-label">Rating</label>
+                    <label for="rating" class="form-label" style="font-size: 1.2rem; font-weight: 400"><b>Rating</b></label>
                     <fieldset class="starability-slot">  <!-- Change the class name based on style you are chossing to display stars -->
                         <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                         <label for="first-rate1" title="Terrible">1 star</label>
@@ -47,7 +53,7 @@
                     </fieldset>
                 </div>
                 <div class="mb-3 mt-3">
-                    <label for="comment" class="form-label">Comment</label>
+                    <label for="comment" class="form-label" style="font-size: 1.2rem; font-weight: 400"><b>Comment</b></label>
                     <textarea id="comment" name="review[comment]" cols="30" rows="5" class="form-control" required></textarea>
                     <div class="invalid-feedback">Please submit comments for review</div>
                 </div>
@@ -62,7 +68,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@<%= review.author.username %></h5>
                         <p class="starability-result card-text" data-rating=<%= review.rating %>></p>
-                        <p class="card-text"><%= review.comment %></p>
+                        <p class="card-text" style="font-size: 1.2rem"><b><%= review.comment %></b></p>
                         <% if(currUser && currUser._id.equals(review.author._id)) {%>
                             <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>">
                                 <button class="btn btn-sm btn-dark mb-3">Delete</button>

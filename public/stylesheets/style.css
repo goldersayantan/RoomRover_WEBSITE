@@ -1,7 +1,9 @@
 body    {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
+    font-weight: 300;
     font-style: normal;
+    font-variation-settings: "wdth" 100;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,6 +17,7 @@ body    {
 .navbar {
     height: 5rem;
     background-color: white;
+    font-size: 1.2rem;
 }
 
 .fa-location-arrow  {
@@ -24,11 +27,42 @@ body    {
 
 .nav-link   {
     color: #222222 !important;
+    font-weight: 500;
 }
 
 .nav-logo   {
     width: 5rem;
 }
+
+@media (max-width: 768px) {
+    .container-fluid    {
+        background-color: white;
+    }
+}
+
+.search-btn {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+}
+
+.search-btn:hover {
+    background-color: #fe424d;
+    color: white;
+}
+
+.search-btn i   {
+    display: inline;
+    margin-right: 0.5rem;
+}
+
+.search-input   {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1.2rem;
+}
+
 
 /*Footer*/
 .f-info-links   {
@@ -106,6 +140,15 @@ body    {
     padding-right: 0;
 }
 
+#show-details   {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+#reviews    {
+
+}
+
 /*Index page*/
 #filters-wrapper {
     overflow: hidden;
@@ -123,7 +166,7 @@ body    {
     flex: 0 0 auto;
     text-align: center;
     margin: 0 2rem;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .filter:hover {
@@ -131,7 +174,8 @@ body    {
 }
 
 .filter p {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 @keyframes scroll {
@@ -157,9 +201,27 @@ body    {
 .tax-toggle {
     border: 1px solid black;
     border-radius: 1rem;
-    height: 3.5rem;
+    height: 3rem;
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.card-text  {
+    font-size: 1.2rem !important;
+    font-weight: bolder;
+}
+
+/*Sign up*/
+#signup-section, #signin-section {
+    font-size: 1.2rem;
+}
+
+/*Reserve Page*/
+.reserve-section label   {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+

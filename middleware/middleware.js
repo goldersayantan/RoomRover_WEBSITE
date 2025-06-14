@@ -32,6 +32,16 @@ module.exports.isOwner = async(req, res, next) => {
     next();
 }
 
+module.exports.notOwner = async(req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if(listing.owner._id.equals(res.locals.currUser._id))    {
+        req.flash("error", "You are the owner of the listing.")
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
 module.exports.validateListing = (req, res, next) => {
     let {error} = listingSchema.validate(req.body);
     if(error) {
@@ -61,3 +71,5 @@ module.exports.isReviewAuthor = async(req, res, next) => {
     }
     next();
 }
+
+
