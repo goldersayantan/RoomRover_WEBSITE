@@ -173,10 +173,9 @@ body    {
     font-weight: 400;
 }
 
-#reviews    {
-
+#show-reviews-card-body {
+    padding: 1rem !important;
 }
-
 
 /*Index page*/
 #filters-wrapper {
@@ -268,9 +267,6 @@ body    {
         margin-top: 15px;
     }
 }
-
-
-
 
 .card-text  {
     font-size: 1.2rem !important;
