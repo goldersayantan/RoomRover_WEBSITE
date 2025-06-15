@@ -2,12 +2,16 @@
     <body>
         <div id="tax-heading-divs">
             <div>
-                <h2>Available Accommodations</h2>
+                <h2 class="nav-title">Available Accommodations</h2>
             </div>
             <div class="tax-toggle">
-                <div class="form-check form-check-reverse form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                    <label class="form-check-label" for="switchCheckDefault"><b>Display total after taxes</b></label>
+                <div class="form-check form-check-reverse form-switch" id="tax-switch-div">
+                    <div>
+                        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                    </div>
+                    <div>
+                        <label class="form-check-label tax-font" for="switchCheckDefault"><b>Display Taxes</b></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -198,9 +202,9 @@
                 </div>
             </div>
         </div>
-        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 row-cols-1 mt-3">
             <%    for(let listing of allListings)    { %>
-                <div class="card col listing-card">
+                <div class="card col listing-card" id="listing-card">
                     <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" style="height: 20rem">
                     <div class="card-body">
                         <h5 class="card-title"><b><%= listing.title %></b></h5>
